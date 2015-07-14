@@ -1,0 +1,26 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.container {
+  display:flex;
+  flex-wrap: wrap;
+  width:400px;
+  cursor:pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border:1px solid gray;
+}
+
+.pixel {
+  width:10px;
+  height:10px;
+}
