@@ -17,7 +17,7 @@ function intent(DOM) {
 function model(actions) {
   const pixelInit = _.map(
     _.range(1, 1601),
-    x => ({num: x, color: 'white'})
+    x => ({num: x, color: 'grey'})
   )
 
   return actions.pixel$
@@ -26,7 +26,11 @@ function model(actions) {
       if(y === null) {
         return x
       }
-      return _.sortBy(_.uniq(_.union(x, [y]).reverse(), 'num'), 'num')
+      return _.sortBy(
+        _.uniqBy(
+          _.union(x, [y]).reverse(), 'num'
+        ), 'num'
+      )
     })
 }
 
