@@ -19,8 +19,9 @@
   },
   "dependencies": {
     "@cycle/core": "^6.0.3",
-    "@cycle/web": "^2.2.2",
+    "@cycle/dom": "^9.1.0",
     "immutable": "^3.7.4",
-    "lodash": "^4.6.1"
+    "lodash": "^4.6.1",
+    "rx": "^4.0.8"
   }
 }

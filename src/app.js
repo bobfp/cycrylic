@@ -1,17 +1,15 @@
 import Cycle from '@cycle/core';
-import {h, makeDOMDriver} from '@cycle/web';
+import {h, makeDOMDriver} from '@cycle/dom';
 import _ from 'lodash';
 
 function intent(DOM) {
   return {
-    colorPixel$: DOM.get('.pixel', 'mouseover')
+    pixel$: DOM
+      .select('.pixel')
+      .events('mouseover')
       .map(ev => {
-        if(ev.buttons === 1) {
-          return ({num: Number(ev.target.id), color: 'blue'})
-        }
-        else {
-          return null
-        }
+        return (ev.buttons === 1) ?
+          {num: Number(ev.target.id), color: 'blue'} : null
       })
   }
 }
@@ -19,16 +17,20 @@ function intent(DOM) {
 function model(actions) {
   const pixelInit = _.map(
     _.range(1, 1601),
-    x => ({num: x, color: 'white'})
+    x => ({num: x, color: 'grey'})
   )
 
-  return actions.colorPixel$
+  return actions.pixel$
     .startWith(pixelInit)
     .scan((x, y) => {
       if(y === null) {
         return x
       }
-      return _.sortBy(_.uniq(_.union(x, [y]).reverse(), 'num'), 'num')
+      return _.sortBy(
+        _.uniqBy(
+          _.union(x, [y]).reverse(), 'num'
+        ), 'num'
+      )
     })
 }
 
